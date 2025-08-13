@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.board.users.mapper.UserMapper">  
+ 
+ 	<insert id="insertUser" parameterType="map">
+ 		INSERT INTO TUSER
+ 				( USERID, PASSWD, USERNAME, EMAIL, UPOINT )
+ 		values	( #{ userid }, #{ passwd }, #{ username }, #{ email },1000 )
+ 	</insert>
+ 	
+  	<select id="getUserList" resultType="com.board.users.domain.UserDTO"> 
+		<![CDATA[
+			SELECT USERID, PASSWD, USERNAME, EMAIL, TO_CHAR(UPOINT,'FM9,999,999,999') UPOINT,
+			case
+			    WHEN UPOINT > 2000 THEN 'Gold'
+				WHEN UPOINT BETWEEN 1501 AND 2000 THEN 'Silver'
+			    WHEN UPOINT BETWEEN 1000 AND 1500 THEN 'Bronze'
+			    WHEN UPOINT < 1000 THEN 'Zombie'
+			end GRADE, TO_CHAR(INDATE,'YYYY-MM-DD') INDATE
+		FROM TUSER
+		ORDER BY USERNAME ASC
+		]]>
+	</select>
+	
+	<delete id="deleteUser"> 
+		DELETE
+		FROM TUSER
+		WHERE USERID = #{userid}
+	</delete>
+	
+	<select id="getUpdateData" resultType="com.board.users.domain.UserDTO"> 
+		SELECT USERID, PASSWD, USERNAME, EMAIL, UPOINT, TO_CHAR(INDATE,'YYYY-MM-DD HH24:MI:SS') INDATE
+		FROM TUSER
+		WHERE USERID = #{userid}
+	</select>
+	
+	<update id="updateUser"> 
+		UPDATE TUSER SET PASSWD = #{passwd}, email = #{email}
+		WHERE USERID = #{userid} 
+	</update>
+	
+	<select id="login" resultType="com.board.users.domain.UserDTO"> 
+		<![CDATA[
+			SELECT USERID, PASSWD, USERNAME, EMAIL, TO_CHAR(UPOINT,'FM9,999,999,999') UPOINT,
+				case
+				    WHEN UPOINT > 2000 THEN 'Gold'
+					WHEN UPOINT BETWEEN 1501 AND 2000 THEN 'Silver'
+				    WHEN UPOINT BETWEEN 1000 AND 1500 THEN 'Bronze'
+				    WHEN UPOINT < 1000 THEN 'Zombie'
+				end GRADE, TO_CHAR(INDATE,'YYYY-MM-DD') INDATE
+			FROM TUSER 
+			WHERE USERID = #{uid} AND PASSWD = #{pwd}
+		]]>
+	</select>
+	<!-- 
+	<select id="getInsertData" resultMap="getInsertMap"> 
+		SELECT MENU_ID, SUBSTR(MENU_ID,0,4) ID, SUBSTR(MENU_ID,5,2) N
+		FROM (
+    		SELECT MENU_ID, RANK() OVER(ORDER BY MENU_ID DESC) AS RANK
+    		FROM MENUS 
+		) WHERE RANK = 1
+	</select>
+	<resultMap id="getInsertMap" type="com.board.menus.domain.MenuDTO"> 
+		<result property="menu_id" column="MENU_ID"/>
+		<result property="menu_name" column="ID"/>	
+		<result property="menu_seq" column="N"/>	
+	</resultMap>
+	-->
+	<!-- 
+	<select id="getInsertData" resultType="com.board.menus.domain.MenuDTO"> 
+		SELECT 
+			'MENU'||TRIM(TO_CHAR(NVL(SUBSTR(MAX(MENU_ID),5,2),0)+1,'00')) MENU_ID,
+			TO_CHAR(NVL(MAX(MENU_SEQ),0)+1,'00') MENU_SEQ
+		FROM MENUS
+	</select> 
+	
+		
+	
+  	
+	
+	-->
+</mapper>

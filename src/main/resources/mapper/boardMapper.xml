@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.board.mapper.BoardMapper">  
+ 
+	<!-- 
+ 	<select id="getBoardList" resultType="com.board.domain.BoardDTO"> 
+		SELECT B.IDX, B.MENU_ID, M.MENU_NAME, B.TITLE, B.CONTENT, B.WRITER, B.REGDATE, B.HIT 
+		FROM BOARD B, MENUS M, TUSER U
+		WHERE B.MENU_ID = M.MENU_ID AND B.WRITER = U.USERID
+		ORDER BY B.REGDATE DESC
+	</select>
+	-->
+	<select id="getBoardList" resultType="com.board.domain.BoardDTO">
+		SELECT IDX, MENU_ID, TITLE, CONTENT, WRITER, TO_CHAR(REGDATE,'YYYY-MM-DD') REGDATE, HIT
+		FROM BOARD
+		where MENU_ID = #{menu_id}
+		ORDER BY IDX DESC
+	</select>
+	
+	<insert id="insertBoard" parameterType="map">
+ 		INSERT INTO BOARD
+ 				( IDX, MENU_ID, TITLE, CONTENT, WRITER, REGDATE, HIT )
+ 		values	( 
+ 			( SELECT NVL(MAX(IDX),0)+1 FROM BOARD  ), 
+ 			#{ menu_id }, #{ title }, #{ content }, #{ writer },sysdate,0 
+ 			)
+ 	</insert>
+ 	
+ 	<select id="getBoardData" resultType="com.board.domain.BoardDTO">
+		SELECT IDX, MENU_ID, TITLE, CONTENT, WRITER, TO_CHAR(REGDATE,'YYYY-MM-DD') REGDATE, HIT
+		FROM BOARD
+		WHERE IDX = #{idx}
+		ORDER BY IDX DESC
+	</select>
+	
+	<update id="updateBoard">
+		UPDATE BOARD SET TITLE = #{title}, content=#{content}
+		where idx=#{idx}
+	</update>
+	
+	<delete id="deleteBoard"> 
+		DELETE
+		FROM BOARD
+		WHERE IDX = #{idx}
+	</delete>
+	
+	<update id="incHit">
+		UPDATE BOARD SET HIT = (SELECT (NVL(MAX(hit),0)+1) FROM BOARD WHERE IDX=#{idx})
+		WHERE IDX=#{idx}
+	</update>
+	
+	<!--
+	<select id="getCategoryData" resultType="com.board.domain.BoardDTO"> 
+		SELECT MENU_ID, MENU_NAME
+		FROM MENUS 
+		ORDER BY MENU_ID ASC
+	</select>
+	-->
+	<!-- 
+	
+ 	-->
+  	<!-- 
+	
+	<resultMap id="getInsertMap" type="com.board.menus.domain.MenuDTO"> 
+		<result property="menu_id" column="MENU_ID"/>
+		<result property="menu_name" column="ID"/>	
+		<result property="menu_seq" column="N"/>	
+	</resultMap>
+	-->
+	<!--
+	<select id="getInsertData" resultType="com.board.menus.domain.MenuDTO"> 
+		SELECT 
+			'MENU'||TRIM(TO_CHAR(NVL(SUBSTR(MAX(MENU_ID),5,2),0)+1,'00')) MENU_ID,
+			TO_CHAR(NVL(MAX(MENU_SEQ),0)+1,'00') MENU_SEQ
+		FROM MENUS
+	</select> 
+	
+		
+	<delete id="deleteMenu"> 
+		DELETE
+		FROM MENUS
+		WHERE MENU_ID = #{menu_id}
+	</delete>
+  	<select id="getUpdateData" resultType="com.board.menus.domain.MenuDTO"> 
+		SELECT MENU_ID, MENU_NAME, MENU_SEQ
+		FROM MENUS WHERE MENU_ID = #{menu_id}
+		ORDER BY MENU_ID ASC
+	</select>
+	<update id="updateMenu"> 
+		UPDATE MENUS SET MENU_NAME = #{menu_name}, MENU_SEQ = #{menu_seq}
+		WHERE MENU_ID = #{menu_id} 
+	</update>
+	-->
+</mapper>

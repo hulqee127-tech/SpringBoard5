@@ -1,0 +1,51 @@
+- 멀티 게시판 
+DROP    TABLE  BOARD;
+CREATE  TABLE  BOARD (
+     IDX          NUMBER(8, 0)         PRIMARY KEY
+   , MENU_ID      VARCHAR2(6)
+      REFERENCES  MENUS ( MENU_ID )
+   , TITLE        VARCHAR2(300 BYTE)   NOT NULL
+   , CONTENT      VARCHAR2(4000 BYTE)
+   , WRITER       VARCHAR2(12)
+   , REGDATE      DATE                 DEFAULT  SYSDATE
+   , HIT          NUMBER(9, 0)         DEFAULT  0
+);
+
+INSERT INTO BOARD (IDX, MENU_ID, TITLE, CONTENT, WRITER)
+ VALUES (
+   ( SELECT NVL(MAX(IDX),0)+1 FROM BOARD  )
+   , 'MENU01', '반갑습니다', '인사드립니다', 'ADMIN');  
+INSERT INTO BOARD (IDX, MENU_ID, TITLE, CONTENT, WRITER)
+ VALUES (
+   ( SELECT NVL(MAX(IDX),0)+1 FROM BOARD  )
+   , 'MENU02', '반갑습니다-1', '인사드립니다-1', 'ADMIN');    
+COMMIT;  
+
+select * from board;
+
+SELECT B.IDX, B.MENU_ID, M.MENU_NAME, B.TITLE, B.CONTENT, B.WRITER, B.REGDATE, B.HIT 
+FROM BOARD B, MENUS M
+WHERE B.MENU_ID = M.MENU_ID
+ORDER BY B. REGDATE DESC;
+
+
+
+CREATE  TABLE  FILES
+(
+     FILE_NUM    NUMBER(6,0)    NOT NULL    -- 파일고유번호
+   , IDX         NUMBER(6,0)    NOT NULL    -- 게시글 번호
+   , FILENAME    VARCHAR2(300)  NOT NULL    -- 파일이름
+   , FILEEXT     VARCHAR2(300)  NOT NULL    -- 파일확장자
+   , SFILENAME   VARCHAR2(300)  NOT NULL    -- 저장된 실제 파일명
+   
+   , CONSTRAINTS   FILES_PK     PRIMARY KEY   -- 기본기(복합키)
+   (
+       FILE_NUM,
+       IDX
+   )
+   , CONSTRAINT   FK_BOARD_FILES_IDX
+     FOREIGN KEY  (IDX)
+     REFERENCES   BOARD(IDX)
+     ON  DELETE   CASCADE
+);
+
