@@ -1,0 +1,41 @@
+오라클 (skydb)
+
+create table zipcode(
+    num NUMBER(6) PRIMARY KEY,
+    zipcode VARCHAR2(7) not null,
+    sido VARCHAR2(6) ,					-- 6 으로 변경
+    gugun VARCHAR2(30),					-- 25 으로 변경
+    dong VARCHAR(100),					-- 77 으로 변경
+    bunji VARCHAR(30),					-- 18 으로 변경
+    SEQ number(6)
+)
+
+--변경후 테이블 생성할것
+
+
+select * from zipcode;
+delete from zipcode;
+commit;
+alter table zipcode modify gugun VARCHAR2(25);
+commit;
+
+
+
+MySQL (testdb)
+create table zipcode(
+    num int primary key auto_increment,
+    zipcode varchar(7) not null,
+    sido varchar(6),
+    gugun varchar(30),
+    dong varchar(100),
+    bunji varchar(30),
+    seq int
+);
+--변경후 테이블 생성할것
+
+
+select * from zipcode;
+delete from zipcode;
+commit;
+alter table zipcode modify gugun VARCHAR(25);
+commit;

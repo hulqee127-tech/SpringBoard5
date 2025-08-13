@@ -1,0 +1,76 @@
+데이터베이스 : hdb
+계정 : hyy
+
+create table board(
+num int primary key auto_increment,
+title varchar(300) not null,
+content varchar(65000),
+writer varchar(60),
+wdate datetime sysdate(),
+hit int
+);
+
+
+
+table board
+번호  num 숫자(정수) 기본키 자동증가
+제목  title 문자(300) 필수입력
+내용  content 문자(65000)
+작성자  writer 문자(60)
+작성일  wdate 날짜시간 기본값 현재()
+조회수 hit 숫자
+
+사용할 수 있도록 모든 권한 부여
+
+데이터 추가 5줄 insert
+insert into board (title, content, writer,wdate,hit)
+values ('board_1','content_1','writer_1',sysdate(),0);
+insert into board (title, content, writer,wdate,hit)
+values ('board_2','content_2','writer_2',sysdate(),0);
+insert into board (title, content, writer,wdate,hit)
+values ('board_3','content_3','writer_3',sysdate(),0);
+insert into board (title, content, writer,wdate,hit)
+values ('board_4','content_4','writer_4',sysdate(),0);
+insert into board (title, content, writer,wdate,hit)
+values ('board_5','content_5','writer_5',sysdate(),0);
+
+삭제 2줄
+delete from board where num in (4,5);
+
+수정 2줄
+update board set content = 'CONTENT_3으로 변경' where num=3;
+update board set wdate = now() where num=3;
+
+
+
+
+
+create table board(
+    num NUMBER(6) PRIMARY KEY, 
+    title VARCHAR2(300) NOT NULL,
+    content clob ,    
+    writer varchar2(60),
+    wdate DATE DEFAULT SYSDATE,
+    hit number(6)
+);
+
+
+create sequence seq_num;
+
+insert into board (num, title, content, writer, wdate, hit)
+        values(seq_num.nextval,'title_1','clob_1','writer01',sysdate,0);
+insert into board (num, title, content, writer, wdate, hit)
+        values(seq_num.nextval,'title_2','clob_2','writer02',sysdate,0);
+insert into board (num, title, content, writer, wdate, hit)
+        values(seq_num.nextval,'title_3','clob_3','writer03',sysdate,0);
+insert into board (num, title, content, writer, wdate, hit)
+        values(seq_num.nextval,'title_4','clob_4','writer04',sysdate,0);
+insert into board (num, title, content, writer, wdate, hit)
+        values(seq_num.nextval,'title_5','clob_5','writer05',sysdate,0);
+
+
+
+update board set content = 'clob_3으로변경한다.' where num=3;
+update board set title = 'title_2로변경한다.' where num=2;
+
+

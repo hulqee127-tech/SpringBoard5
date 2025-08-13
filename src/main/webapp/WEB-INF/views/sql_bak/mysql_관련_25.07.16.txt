@@ -1,0 +1,99 @@
+● 설치와 셋팅은 PDF 를 참조할것.
+
+
+● 생성된 사용자
+  - test
+create user 'test'@'localhost' identified by '1234';
+create user 'test'@'%' identified by '1234';
+flush privileges;
+
+  - sky
+create user 'sky'@'localhost' identified by '1234';
+create user 'sky'@'%' identified by '1234';
+flush privileges;
+
+  - green
+create user 'green'@'localhost' identified by '1234';
+create user 'green'@'%' identified by '1234';
+flush privileges;
+
+  - hyy
+create user 'hyy'@'localhost' identified by '1234';
+create user 'hyy'@'%' identified by '1234';
+flush privileges;
+
+※ 사용자 삭제
+drop user 'test'@'localhost';
+drop user 'test'@'%';
+flush privileges;
+
+
+● 생성된 DATABASE
+  - testdb
+create database testdb;
+create database if not exists testdb default character set utf8;
+flush privileges;
+
+  - skydb
+create database skydb;
+create database if not exists skydb default character set utf8;
+flush privileges;
+
+  - greendb
+create database greendb;
+create database if not exists greendb default character set utf8;
+flush privileges;
+
+  - hyy
+create database hdb;
+create database if not exists hdb default character set utf8;
+flush privileges;
+
+
+● 각 사용자별 DATABASE 접근 권한 부여
+  - test
+grant all privileges on testdb.* to 'test'@'localhost';
+grant all privileges on testdb.* to 'test'@'%';
+flush privileges;
+
+  - sky
+grant all privileges on skydb.* to 'sky'@'localhost';
+grant all privileges on skydb.* to 'sky'@'%';
+flush privileges;
+
+  - green
+grant all privileges on greendb.* to 'green'@'localhost';
+grant all privileges on greendb.* to 'green'@'%';
+flush privileges;
+
+  - hyy
+grant all privileges on hdb.* to 'hyy'@'localhost';
+grant all privileges on hdb.* to 'hyy'@'%';
+flush privileges;
+
+
+
+●○●○ 생성 TABLE ●○●○
+  - 오라클 (hyy계정)
+create table H_USER(
+HU_SEQ number(10) not null primary key,
+HU_ID varchar2(100) not null,
+HU_PWD varchar2(500) not null,
+HU_CLNUM varchar2(500) not null,
+HU_REG_DATE date default sysdate,
+HU_DEL_FLAG varchar2(20)
+);
+
+
+  - mysql (hyy계정)
+create table H_USER(
+HU_SEQ int AUTO_INCREMENT PRIMARY KEY,
+HU_ID varchar(30) not null,
+HU_PWD varchar(500) not null,
+HU_CLNUM varchar(500) not null,
+HU_REG_DATE datetime default now(),
+HU_DEL_FLAG varchar(20)
+);
+
+
+
