@@ -33,6 +33,10 @@
 					<a href="/Board/boardList?menu_id=MENU01">게시글목록</a>
 					||
 					<a href="/Board/WriteForm?menu_id=MENU01">게시글추가</a>
+					<hr />
+					<a href="/BoardPaging/boardList?nowpage=1&menu_id=MENU01">게시글목록(페이징)</a>
+					||
+					<a href="/BoardPaging/WriteForm?nowpage=1&menu_id=MENU01">게시글추가(페이징)</a>
 				</main>
 			</td>
 			<td>
