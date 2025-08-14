@@ -41,7 +41,7 @@
 	<main>
 		<!-- 대체 명령어로 변경 -->
 		<!-- 메뉴 리스트 -->
-		<%@include file="/WEB-INF/include/top_menus.jsp" %>
+		<%@include file="/WEB-INF/include/top_menuspaging.jsp" %>
 		
 		<h2>[${menuDto.menu_name}] 게시물 목록&nbsp;&nbsp;||&nbsp;&nbsp;<a href="http://localhost:9090/">홈</a></h2>
 
@@ -58,16 +58,16 @@
 			</tr>
 			<tr>
 				<td colspan="5">
-					<a href="/Board/WriteForm?menu_id=${menuDto.menu_id}">새 게시글 추가</a>
+					<a href="/BoardPaging/WriteForm?nowpage=${ nowpage }&menu_id=${menuDto.menu_id}">새 게시글 추가</a>
 				</td>
 			</tr>
 			<% //for(int i=0; i<menuList.size();i++){ %>
 			<% //for(MenuDTO menu : menuList ){ %>
 			<% //MenuDTO menu = new menuList.get(i); %>
-			<c:forEach var="board" items="${boardList}">		<!-- JSTL 문법 -->
+			<c:forEach var="board" items="${response.list}">		<!-- JSTL 문법 -->
 			<tr>
 				<td>${ board.idx     }</td>	<!-- Expression Langauge => EL el문법 -->
-				<td><a href="/Board/boardView?idx=${ board.idx }&menu_id=${board.menu_id}">${ board.title   }</a></td>
+				<td><a href="/BoardPaging/boardView?nowpage=${ nowpage }&idx=${ board.idx }&menu_id=${board.menu_id}">${ board.title   }</a></td>
 				<td>${ board.writer  }</td>
 				<td>${ board.regdate }</td>
 				<td>${ board.hit     }</td>

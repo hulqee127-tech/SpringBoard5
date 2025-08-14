@@ -19,6 +19,7 @@ import com.board.paging.domain.SearchDTO;
 @Controller
 public class BoardPagingController {
 	//menu를 불러 오는 마이바티스
+	
 	@Autowired
 	private MenuMapper menuMapper;
 	
@@ -29,6 +30,7 @@ public class BoardPagingController {
 	public ModelAndView list(int nowpage, MenuDTO menuDto) {
 		//메뉴목록
 		List<MenuDTO> menuList = menuMapper.getMenuList();
+		menuDto = menuMapper.getUpdateData(menuDto);
 		
 		//게시물 목록
 		// menu_id = MENU01
@@ -36,7 +38,7 @@ public class BoardPagingController {
 		// 줄번호 11 ~ 20 번까지 자료를 조회
 		// 해당 menu_id 의 총 자료수 구하기
 		int count = boardPagingMapper.count(menuDto); // menu_id 전달
-		System.out.println("자료수 : "+count);
+		//System.out.println("자료수 : "+count);
 		
 		// page로 조회한 결과를 담아놓을 객체
 		PageResponse<BoardDTO> response = null;
@@ -49,7 +51,7 @@ public class BoardPagingController {
 		// 페이징을 위한 초기 설정
 		SearchDTO searchDto = new SearchDTO();
 		searchDto.setPage(nowpage);		//현재 페이지 정보
-		searchDto.setRecordSize(10);	// 페이지당 10줄
+		searchDto.setRecordSize(2);	// 페이지당 10줄
 		searchDto.setPageSize(10);	// paging.jsp 에 출력할 페이지 번호 수
 		
 		// Pagination 설정
@@ -59,14 +61,18 @@ public class BoardPagingController {
 		////////////////////////////////////////////////////////
 		int offset = searchDto.getOffset();			// 30
 		int recordSize = searchDto.getRecordSize();		// 10;
+		String menu_id = menuDto.getMenu_id();
 		
-		List<BoardDTO> list = BoardPagingMapper.getBoardPagingList(offset, recordSize);
+		List<BoardDTO> list = boardPagingMapper.getBoardPagingList(menu_id, offset, recordSize);
+		System.out.println("0 :"+ list);
 		response = new PageResponse<>(list, pagination);
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("menuList",menuList);
-
+		mv.addObject("menuDto",menuDto);
+		mv.addObject("searchDto",searchDto);
 		mv.addObject("response",response);
+		mv.addObject("nowpage",nowpage);
 		mv.setViewName("boardpaging/boardList");
 		return mv;
 	}

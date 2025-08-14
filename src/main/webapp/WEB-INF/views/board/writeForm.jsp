@@ -45,7 +45,7 @@
 		
 		<h2>[${menuDto.menu_name}] 새 게시글 추가&nbsp;&nbsp;||&nbsp;&nbsp;<a href="http://localhost:9090/">홈</a></h2>
 		<form action="/Board/Write" method="POST">
-		<input type="hidden" id="menu_id" value="${menuDto.menu_id}" />
+			<input type="hidden" name="menu_id" value="${menuDto.menu_id}" />
 			<table id="writeForm">
 				<tr>
 					<td>제목</td>
