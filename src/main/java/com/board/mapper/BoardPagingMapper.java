@@ -14,4 +14,11 @@ public interface BoardPagingMapper {
 
 	List<BoardDTO> getBoardPagingList(String menu_id, int offset, int recordSize);
 
+	void insertBoard(BoardDTO boardDto);
+
+	BoardDTO getBoardData(BoardDTO boardDto);
+
+	void incHit(BoardDTO boardDto);
+
+
 }

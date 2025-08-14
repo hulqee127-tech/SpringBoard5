@@ -76,4 +76,52 @@ public class BoardPagingController {
 		mv.setViewName("boardpaging/boardList");
 		return mv;
 	}
+	
+	@RequestMapping("/BoardPaging/WriteForm")
+	public ModelAndView writeForm(int nowpage, MenuDTO menuDto) {
+		// 메뉴 리스트
+		List<MenuDTO> menuList = menuMapper.getMenuList();
+		menuDto = menuMapper.getUpdateData(menuDto);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("menuList",menuList);
+		mv.addObject("menuDto",menuDto);
+		
+		mv.addObject("nowpage",nowpage);
+		mv.setViewName("boardpaging/writeForm");
+		return mv;
+	}
+	
+	@RequestMapping("/BoardPaging/Write")
+	public ModelAndView write(int nowpage, BoardDTO boardDto, MenuDTO menuDto) {
+		boardPagingMapper.insertBoard(boardDto);
+		
+		String menu_id = boardDto.getMenu_id();
+		System.out.println("menu_id "+menu_id);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("menuDto",menuDto);
+		mv.setViewName("redirect:/BoardPaging/boardList?nowpage="+nowpage+"&menu_id="+menu_id);
+		return mv;
+	}
+	
+	@RequestMapping("/BoardPaging/boardView")
+	public ModelAndView boardView(int nowpage, BoardDTO boardDto, MenuDTO menuDto) {
+		// 메뉴 리스트
+		List<MenuDTO> menuList = menuMapper.getMenuList();
+		// 메뉴이름
+		menuDto = menuMapper.getUpdateData(menuDto);
+		
+		//조회수 증가
+		boardPagingMapper.incHit(boardDto);
+		
+		boardDto = boardPagingMapper.getBoardData(boardDto);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("menuList",menuList);
+		mv.addObject("menuDto",menuDto);
+		mv.addObject("boardDto",boardDto);
+		mv.addObject("nowpage",nowpage);
+		mv.setViewName("boardpaging/boardView");
+		return mv;
+	}
 }
