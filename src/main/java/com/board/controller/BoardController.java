@@ -61,7 +61,7 @@ public class BoardController {
 		boardMapper.insertBoard(boardDto);
 		
 		String menu_id = boardDto.getMenu_id();
-		System.out.println("menu_id "+menu_id);
+		//System.out.println("menu_id "+menu_id);
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/Board/boardList?menu_id="+menu_id);

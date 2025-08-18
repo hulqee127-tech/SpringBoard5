@@ -75,7 +75,7 @@
 					<td colspan="3">${boardDto.title}</td>
 				</tr><tr>
 					<td>내용</td>
-					<td colspan="3">${boardDto.content}</td>
+					<td colspan="3">${board.content}</td>
 				</tr>
 				<!-- tr>
 					<td style="width:20%">제목</td>
@@ -121,7 +121,7 @@
 	const updateEl = document.getElementById("Update");
 	const formEl = document.querySelectorAll("form")[0];
 	updateEl.onclick = function(){
-		location.href = '/BoardPaging/updateForm?idx=${boardDto.idx}';
+		location.href = '/BoardPaging/updateForm?nowpage=${nowpage}&idx=${boardDto.idx}&menu_id=${boardDto.menu_id}';
 		//formEl.submit();
 	}
 	
@@ -134,7 +134,7 @@
 	deleteEl.onclick = function(e){
 		if(confirm('삭제하시겠습니까? \n 삭제 후 복원 불가능 합니다.')){
 			alert('삭제되었습니다.');
-			location.href = '/BoardPaging/Delete?menu_id=${boardDto.menu_id}&idx=${boardDto.idx}';
+			location.href = '/BoardPaging/Delete?nowpage=${nowpage}&menu_id=${boardDto.menu_id}&idx=${boardDto.idx}';
 		}else{
 			e.stopPropagation();
 			e.preventDefault();

@@ -45,4 +45,15 @@
 		WHERE IDX=#{idx}
 	</update>
 	
+	<update id="updateBoard">
+		UPDATE BOARD SET TITLE = #{title}, content=#{content}
+		where idx=#{idx}
+	</update>
+	
+	<delete id="deleteBoard"> 
+		DELETE
+		FROM BOARD
+		WHERE IDX = #{idx}
+	</delete>
+	
 </mapper>
