@@ -101,8 +101,10 @@
 				</tr-->
 				<tr>
 					<td colspan="4">
+						<c:if test="${ board.writer eq login.userid }">
 						<input type="button" value="수정" id="Update" />&nbsp;|&nbsp;
 						<input type="button" value="삭제" id="Delete" />&nbsp;|&nbsp;
+						</c:if>
 						<input type="button" value="목록" id="List" />
 					</td>
 					

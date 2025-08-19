@@ -37,6 +37,11 @@
 					<a href="/BoardPaging/boardList?nowpage=1&menu_id=MENU01">게시글목록(페이징)</a>
 					||
 					<a href="/BoardPaging/WriteForm?nowpage=1&menu_id=MENU01">게시글추가(페이징)</a>
+					<hr />
+					<div>
+						${ sessionScope.login.username } 님 환영합니다. 
+						당신의 가입일은 ${ sessionScope.login.indate } 입니다. <a href="/User/Logout">로그아웃</a><a href="/Users/LoginForm?menu_id=MENU01&nowpage=1">로그인</a>
+					</div>
 				</main>
 			</td>
 			<td>

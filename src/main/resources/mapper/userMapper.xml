@@ -49,7 +49,7 @@
 				    WHEN UPOINT < 1000 THEN 'Zombie'
 				end GRADE, TO_CHAR(INDATE,'YYYY-MM-DD') INDATE
 			FROM TUSER 
-			WHERE USERID = #{uid} AND PASSWD = #{pwd}
+			WHERE USERID = #{userid} AND PASSWD = #{passwd}
 		]]>
 	</select>
 	<!-- 

@@ -23,7 +23,9 @@ public interface UserMapper {
 
 	void updateUser(UserDTO userDto);
 
-	List<UserDTO> login(@Param("uid") String uid,@Param("pwd") String pwd);
+	UserDTO login(String userid, String passwd);
+
+	//List<UserDTO> login(@Param("uid") String uid,@Param("pwd") String pwd);
 	
 	
 }
