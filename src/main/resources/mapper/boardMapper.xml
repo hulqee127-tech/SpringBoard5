@@ -17,6 +17,13 @@
 		ORDER BY IDX DESC
 	</select>
 	
+	<select id="getBoardList1" resultType="com.board.domain.BoardDTO">
+		SELECT IDX, MENU_ID, TITLE, CONTENT, WRITER, TO_CHAR(REGDATE,'YYYY-MM-DD') REGDATE, HIT
+		FROM BOARD
+		${where_str}
+		ORDER BY IDX DESC
+	</select>
+	
 	<insert id="insertBoard" parameterType="map">
  		INSERT INTO BOARD
  				( IDX, MENU_ID, TITLE, CONTENT, WRITER, REGDATE, HIT )

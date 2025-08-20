@@ -22,12 +22,19 @@ public class BoardController {
 	private BoardMapper boardMapper;
 	
 	@RequestMapping("/Board/boardList")
-	public ModelAndView list(MenuDTO menuDto) {
+	public ModelAndView list(String where_str, BoardDTO boardDto, MenuDTO menuDto) {
 		// 메뉴 리스트
 		List<MenuDTO> menuList = menuMapper.getMenuList();
 		
 		// 게시물 리스트
-		List<BoardDTO> boardList = boardMapper.getBoardList(menuDto);
+		//List<BoardDTO> boardList = boardMapper.getBoardList(menuDto);
+		//where_str = "where menu_id=#{menuDto.menu_id}";
+		//where_str = "where menu_id=#{menu_id}";
+		where_str = "where menu_id='"+menuDto.getMenu_id()+"'";
+		System.out.println(where_str);
+		System.out.println(menuDto.getMenu_id());
+		//boardDto.setWhere_str(where_str);
+		List<BoardDTO> boardList = boardMapper.getBoardList1(where_str);
 		
 		menuDto = menuMapper.getUpdateData(menuDto);
 		

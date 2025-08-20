@@ -12,6 +12,7 @@ import com.board.menus.domain.MenuDTO;
 public interface BoardMapper {
 	// 게시물 리스트
 	List<BoardDTO> getBoardList(MenuDTO menuDto);
+	List<BoardDTO> getBoardList1(String where_str);
 
 	// 게시물 등록
 	void insertBoard(BoardDTO boardDto);
@@ -27,6 +28,7 @@ public interface BoardMapper {
 
 	//HIT +1 만들기
 	void incHit(BoardDTO boardDto);
+
 
 //	List<BoardDTO> getCategoryData();
 

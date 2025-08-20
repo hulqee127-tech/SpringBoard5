@@ -8,9 +8,16 @@ public class BoardDTO {
 	private String writer;
 	private String regdate;
 	private int    hit;
+	private String where_str;
 	
 	private String menu_name;
 	
+	public String getWhere_str() {
+		return where_str;
+	}
+	public void setWhere_str(String where_str) {
+		this.where_str = where_str;
+	}
 	public String getMenu_name() {
 		return menu_name;
 	}
@@ -60,7 +67,7 @@ public class BoardDTO {
 		this.hit = hit;
 	}
 	public BoardDTO() {}
-	public BoardDTO(int idx, String menu_id, String title, String content, String writer, String regdate, int hit, String menu_name) {
+	public BoardDTO(int idx, String menu_id, String title, String content, String writer, String regdate, int hit, String menu_name, String where_str) {
 		this.idx = idx;
 		this.menu_id = menu_id;
 		this.title = title;
@@ -69,11 +76,14 @@ public class BoardDTO {
 		this.regdate = regdate;
 		this.hit = hit;
 		this.menu_name = menu_name;
+		this.where_str = where_str;
 	}
 	@Override
 	public String toString() {
 		return "BoardDTO [idx=" + idx + ", menu_id=" + menu_id + ", title=" + title + ", content=" + content
-				+ ", writer=" + writer + ", regdate=" + regdate + ", hit=" + hit + "]";
+				+ ", writer=" + writer + ", regdate=" + regdate + ", hit=" + hit + ", where_str=" + where_str
+				+ ", menu_name=" + menu_name + "]";
 	}
+	
 	
 }
